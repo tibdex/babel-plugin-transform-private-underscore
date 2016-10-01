@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/tibdex/babel-plugin-transform-private-underscore.svg?style=svg)](https://circleci.com/gh/tibdex/babel-plugin-transform-private-underscore)
+
 This Babel plugin transforms class declarations to make properties starting with an underscore truly private.
 
 The following code:
