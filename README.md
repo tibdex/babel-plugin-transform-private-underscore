@@ -19,7 +19,7 @@ Add the plugin to your `.babelrc` file. It could look like that:
 ```json
 {
   "presets": ["es2015"],
-  "plugins": ["underscore-to-private"]
+  "plugins": ["transform-private-underscore"]
 }
 ```
 
@@ -88,3 +88,5 @@ export default class Person {
 The transpiled code used in the console gives this:
 
 ![Usage in the console](https://raw.githubusercontent.com/tibdex/babel-plugin-transform-private-underscore/master/resources/console.png)
+
+Take a look at the [examples folder](https://github.com/tibdex/babel-plugin-transform-private-underscore/tree/master/examples) to see all the cases tested against the plugin.

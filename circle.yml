@@ -4,6 +4,7 @@ machine:
 
 test:
   pre:
+    - npm run clean
     - npm run lint
   override:
     - npm test -- --coverage
