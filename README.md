@@ -84,3 +84,7 @@ export default class Person {
   }
 }
 ```
+
+The transpiled code used in the console gives this:
+
+![Usage in the console](https://raw.githubusercontent.com/tibdex/babel-plugin-transform-private-underscore/master/resources/console.png)
