@@ -1,6 +1,29 @@
 [![CircleCI](https://circleci.com/gh/tibdex/babel-plugin-transform-private-underscore.svg?style=svg)](https://circleci.com/gh/tibdex/babel-plugin-transform-private-underscore)
 
+# Goal
+
 This Babel plugin transforms class declarations to make properties starting with an underscore truly private.
+
+Private attributes are moved to a WeakMap and private methods are externalized into a regular JS object. These transformations should not introduce any performance penalty.
+
+# Installation
+
+```bash
+npm install --save-dev babel-plugin-transform-private-underscore
+```
+
+# Usage
+
+Add the plugin to your `.babelrc` file. It could look like that:
+
+```json
+{
+  "presets": ["es2015"],
+  "plugins": ["underscore-to-private"]
+}
+```
+
+# Example
 
 The following code:
 
@@ -61,5 +84,3 @@ export default class Person {
   }
 }
 ```
-
-Private attributes are moved to a WeakMap and private methods are externalized into a regular JS object. These transformations should not introduce any performance penalty.

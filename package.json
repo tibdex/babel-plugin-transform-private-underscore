@@ -1,12 +1,13 @@
 {
   "name": "babel-plugin-transform-private-underscore",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "Babel plugin to make class properties starting with an underscore really private",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepublish": "npm run lint && npm run test && npm run build"
   },
   "author": "Thibault Derousseaux <tib.dex@gmail.com>",
   "license": "MIT",

@@ -36,8 +36,8 @@ const testExamples = () => {
 
 const testReadme = () => {
   const readme = fs.readFileSync('README.md').toString();
-  const parts = readme.split('```');
-  const [initial, expected] = [1, 3].map(index => parts[index].split('javascript')[1]);
+  const parts = readme.split('```javascript');
+  const [initial, expected] = [1, 2].map(index => parts[index].split('```')[0]);
 
   it('supports readme examples', getTestFunction(initial, expected));
 };
