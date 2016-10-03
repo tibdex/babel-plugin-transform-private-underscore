@@ -1,7 +1,6 @@
 import fs from 'fs';
-import path from 'path';
 
-import _ from 'lodash';
+import isEqual from 'lodash.isequal';
 import { transform } from 'babel-core';
 
 const getTestFunction = (initial, expected) => () => {
@@ -13,7 +12,7 @@ const getTestFunction = (initial, expected) => () => {
     code => transform(code.replace(/\n/mg, '')).ast
   );
 
-  if (_.isEqual(actualAstWithoutNewLines, expectedAstWithoutNewLines)) {
+  if (isEqual(actualAstWithoutNewLines, expectedAstWithoutNewLines)) {
     expect(actualAstWithoutNewLines).toEqual(expectedAstWithoutNewLines);
   } else {
     expect(actual).toBe(expected);
@@ -22,16 +21,26 @@ const getTestFunction = (initial, expected) => () => {
 
 const testExamples = () => {
   const examplesDirectory = 'examples';
-  fs.readdirSync(examplesDirectory).forEach((directoryName) => {
-    const testName = `supports ${directoryName.replace(/-/g, ' ')}`;
+  fs.readdirSync(examplesDirectory)
+    .filter(entry => !entry.startsWith('.'))
+    .forEach((directoryName) => {
+      const testName = `supports ${directoryName.replace(/-/g, ' ')}`;
 
-    const [initial, expected] = ['initial', 'expected'].map((fileName) => {
-      const filePath = `${examplesDirectory}/${directoryName}/${fileName}.js`;
-      return fs.readFileSync(filePath).toString();
+      const [initial, expected] = ['initial', 'expected'].map((fileName) => {
+        const filePath = `${examplesDirectory}/${directoryName}/${fileName}.js`;
+        return fs.readFileSync(filePath).toString();
+      });
+
+      const testFunction = getTestFunction(initial, expected);
+
+      if (directoryName.startsWith('only-')) {
+        it.only(testName, testFunction);
+      } else if (directoryName.startsWith('skip-')) {
+        it.skip(testName, testFunction);
+      } else {
+        it(testName, testFunction);
+      }
     });
-
-    it(testName, getTestFunction(initial, expected));
-  });
 };
 
 const testReadme = () => {

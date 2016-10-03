@@ -1,0 +1,7 @@
+{
+  "extends": "../.eslintrc",
+  "rules": {
+    "no-unused-vars": "off",
+    "import/prefer-default-export": "off"
+  }
+}
