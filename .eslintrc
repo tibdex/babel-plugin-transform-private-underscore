@@ -1,11 +1,7 @@
 {
   "extends": "airbnb-base",
-  "env": {
-    "jest": true
-  },
   "rules": {
     "comma-dangle": ["warn", "never"],
-    "max-len": ["warn", 120, 2],
-    "no-underscore-dangle": "off"
+    "max-len": ["warn", 120, 2]
   }
 }
