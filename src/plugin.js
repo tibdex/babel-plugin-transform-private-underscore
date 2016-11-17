@@ -57,7 +57,12 @@ const declareAndInitializeWeakMap = (classBodyPath) => {
   const weakMapInitialization = templates.makeWeakMapInitialization({ WEAK_MAP: weakMapIdentifier });
   const constructorPath = utils.getConstructorPath(classBodyPath);
   if (constructorPath) {
-    constructorPath.get('body.body.0').insertBefore(weakMapInitialization);
+    const firstStatementPath = constructorPath.get('body.body.0');
+    if (utils.isSuperConstructionCall(firstStatementPath)) {
+      firstStatementPath.insertAfter(weakMapInitialization);
+    } else {
+      firstStatementPath.insertBefore(weakMapInitialization);
+    }
   } else {
     const firstMethodPath = classBodyPath.get('body').find(path => path.isClassMethod());
     firstMethodPath.insertBefore(t.classMethod(

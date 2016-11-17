@@ -1,4 +1,4 @@
-import { isClassDeclaration, isClassExpression, isClassMethod } from 'babel-types';
+import { isClassDeclaration, isClassExpression, isClassMethod, isSuper } from 'babel-types';
 
 const getClassName = (classBodyPath) => {
   const parent = classBodyPath.parent;
@@ -24,9 +24,12 @@ const getFirstPathWhereVariableCanBeDeclaredInParentHierarchy = path => (
 const getExternalizedPrivatePropertiesDeclarationSiblingPath = (classBodyPath, position = 0) =>
   getFirstPathWhereVariableCanBeDeclaredInParentHierarchy(classBodyPath.parentPath.parentPath).get(`body.${position}`);
 
+const isSuperConstructionCall = path => path.isExpressionStatement() && isSuper(path.node.expression.callee);
+
 export {
   getClassName,
   getPrivateMethodsNames,
   getConstructorPath,
-  getExternalizedPrivatePropertiesDeclarationSiblingPath
+  getExternalizedPrivatePropertiesDeclarationSiblingPath,
+  isSuperConstructionCall
 };
